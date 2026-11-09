@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Задачник</title>
+  <meta name="description" content="Задачи с приоритетом по срокам">
+  <meta name="theme-color" content="#4f46e5">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Задачник">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <div class="top-row">
+      <h1 id="screenTitle">Задачи</h1>
+      <button class="text-btn" id="clearDone" hidden>Очистить</button>
+    </div>
+    <p class="stats" id="stats"></p>
+    <nav class="chips" id="filters">
+      <button class="chip active" data-filter="all">Все</button>
+      <button class="chip" data-filter="in_progress">В работе</button>
+      <button class="chip" data-filter="todo">Не начаты</button>
+    </nav>
+  </header>
+
+  <main>
+    <div id="list"></div>
+  </main>
+
+  <button class="fab" id="addBtn" aria-label="Новая задача">
+    <svg viewBox="0 0 24 24" width="28" height="28"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
+  </button>
+
+  <nav class="tabbar">
+    <button class="tab active" data-view="active">
+      <svg viewBox="0 0 24 24" width="24" height="24"><path d="M4 6h16M4 12h16M4 18h10" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+      <span>Задачи</span>
+      <i class="tab-badge" id="activeCount"></i>
+    </button>
+    <button class="tab" data-view="done">
+      <svg viewBox="0 0 24 24" width="24" height="24"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+      <span>Выполненные</span>
+      <i class="tab-badge muted" id="doneCount"></i>
+    </button>
+  </nav>
+
+  <!-- Форма задачи -->
+  <div class="sheet-backdrop" id="backdrop" hidden></div>
+  <form class="sheet" id="sheet" hidden autocomplete="off">
+    <div class="sheet-handle"></div>
+    <div class="sheet-head">
+      <h2 id="sheetTitle">Новая задача</h2>
+      <button type="button" class="icon-btn" id="closeSheet" aria-label="Закрыть">✕</button>
+    </div>
+
+    <input class="field title-field" name="title" placeholder="Что нужно сделать?" required maxlength="200">
+    <textarea class="field" name="notes" rows="2" placeholder="Заметка (необязательно)"></textarea>
+
+    <label class="label">Срок</label>
+    <div class="chips quick-dates" id="quickDates">
+      <button type="button" class="chip" data-days="0">Сегодня</button>
+      <button type="button" class="chip" data-days="1">Завтра</button>
+      <button type="button" class="chip" data-days="3">Через 3 дня</button>
+      <button type="button" class="chip" data-days="7">Через неделю</button>
+      <button type="button" class="chip" data-days="">Без срока</button>
+    </div>
+    <div class="row">
+      <input class="field" type="date" name="due">
+      <input class="field" type="time" name="time">
+    </div>
+
+    <label class="label">Статус</label>
+    <div class="segmented" id="statusSeg">
+      <button type="button" data-status="todo">Новая</button>
+      <button type="button" data-status="in_progress">В работе</button>
+      <button type="button" data-status="done">Выполнена</button>
+    </div>
+
+    <div class="sheet-actions">
+      <button type="button" class="danger-btn" id="deleteBtn" hidden>Удалить</button>
+      <button type="submit" class="primary-btn">Сохранить</button>
+    </div>
+  </form>
+
+  <div class="toast" id="toast" hidden>
+    <span id="toastText"></span>
+    <button id="toastUndo">Отменить</button>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
