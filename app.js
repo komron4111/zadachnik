@@ -329,3 +329,8 @@ render();
 if ('serviceWorker' in navigator && window.isSecureContext) {
   navigator.serviceWorker.register('sw.js').catch(() => {});
 }
+
+// Просим браузер не стирать задачи при нехватке места на устройстве
+if (navigator.storage && navigator.storage.persist) {
+  navigator.storage.persist().catch(() => {});
+}
